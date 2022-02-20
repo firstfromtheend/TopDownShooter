@@ -23,11 +23,14 @@ public class Pathfinder : MonoBehaviour
 
     private void FollowPath()
     {
+        // here we can change Vector2 on Vector3, coz we don't care abot Z coordinate and it make condition in second IF a little bit less
+        // e.x. in commentary below
         if (waypointIndex < waypoints.Count)
         {
             Vector2 targetPosition = waypoints[waypointIndex].position;
             float delta = waveConfig.EnemyMoveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, delta);
+            //if (transform.position == targetPosition)
             if (transform.position.x == targetPosition.x && transform.position.y == targetPosition.y)
             {
                 waypointIndex++;
