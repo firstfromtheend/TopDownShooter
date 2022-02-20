@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Wave config", fileName = "New wave config")]
-public class WaveConfig : ScriptableObject
+public class SO_WaveConfig : ScriptableObject
 {
     [SerializeField] Transform pathPrefab;
-    [SerializeField] float enemyMoveSpeed 
+    [SerializeField] float enemyMoveSpeed = 5;
+    public float EnemyMoveSpeed 
     {
         get { return enemyMoveSpeed; }
         set { enemyMoveSpeed = value; }
@@ -28,8 +29,9 @@ public class WaveConfig : ScriptableObject
         return waypoints;
     }
 
-    public float GetEnemyMiveSpeed()
-    {
-        return enemyMoveSpeed;
-    }
+    // replacement for get in enemyMoveSpeed
+    //public float GetEnemyMiveSpeed()
+    //{
+    //    return enemyMoveSpeed;
+    //}
 }
