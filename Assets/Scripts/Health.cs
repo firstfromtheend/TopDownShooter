@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 50;
+    [SerializeField] ParticleSystem deathVFX;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,6 +24,15 @@ public class Health : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            PlayDeathVFX();
+        }
+    }
+    void PlayDeathVFX()
+    {
+        if (deathVFX != null)
+        {
+            ParticleSystem instance = Instantiate(deathVFX, transform.position, Quaternion.identity);
+            Destroy(instance, instance.main.duration + instance.main.startLifetime.constantMax);
         }
     }
 }
