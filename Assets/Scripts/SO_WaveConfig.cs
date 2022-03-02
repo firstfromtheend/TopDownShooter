@@ -13,6 +13,9 @@ public class SO_WaveConfig : ScriptableObject
     [SerializeField] Transform pathPrefab;
 
     [SerializeField] float enemyMoveSpeed = 5;
+
+    [SerializeField] int pointsByEnemy = 10;
+
     public float EnemyMoveSpeed 
     {
         get { return enemyMoveSpeed; }
@@ -49,6 +52,11 @@ public class SO_WaveConfig : ScriptableObject
     {
         float randomSpawnTime = Random.Range(timeBetweenSpawns - spawnTimeVariance, timeBetweenSpawns + spawnTimeVariance);
         return Mathf.Clamp(randomSpawnTime, minSpawnTime, float.MaxValue);
+    }
+
+    public int GetPointsByEnemy()
+    {
+        return pointsByEnemy;
     }
 
     // replacement for get in EnemyMoveSpeed

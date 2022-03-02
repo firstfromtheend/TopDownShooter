@@ -1,11 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int health = 50;
+    [SerializeField] int healthShip = 50;
+    //public int HealthShip { get; }
+
+    [SerializeField] int points = 10;
+
     [SerializeField] ParticleSystem deathVFX;
 
     [SerializeField] bool applyCameraShake;
@@ -14,10 +17,15 @@ public class Health : MonoBehaviour
 
     AudioPlayer audioPlayer;
 
+    [SerializeField] bool isPlayer;
+
+    ScoreKeeper scoreKeeper;
+
     private void Awake()
     {
         cameraScreenShake = Camera.main.GetComponent<CameraScreenShake>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,13 +41,22 @@ public class Health : MonoBehaviour
 
     void TakeDamage(int damageValue)
     {
-        health -= damageValue;
+        healthShip -= damageValue;
         ShakeCamera();
-        if (health <= 0)
+        if (healthShip <= 0)
         {
+            if (!isPlayer)
+            {
+                AddScore();
+            }
             PlayDeathVFX();
             Destroy(gameObject);
         }
+    }
+
+    private void AddScore()
+    {
+        scoreKeeper.PlayerScore = points;
     }
 
     private void ShakeCamera()
@@ -58,5 +75,10 @@ public class Health : MonoBehaviour
             Destroy(instance, instance.main.duration + instance.main.startLifetime.constantMax);
             audioPlayer.PlayPlayerDeath();
         }
+    }
+
+    public int GetHealth()
+    {
+        return healthShip;
     }
 }
