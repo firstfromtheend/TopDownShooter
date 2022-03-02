@@ -20,6 +20,13 @@ public class Shooter : MonoBehaviour
 
     Coroutine fireCoroutine;
 
+    AudioPlayer audioPlayer;
+
+    private void Awake()
+    {
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+    }
+
     private void Start()
     {
         if (useAI)
@@ -65,6 +72,7 @@ public class Shooter : MonoBehaviour
                 enemyFiringRate = Mathf.Clamp(enemyMinFiringRate, enemyFiringRate, float.MaxValue);
                 yield return new WaitForSeconds(enemyFiringRate);
             }
+            audioPlayer.PlayPlayerShoot();
         }
     }
 }

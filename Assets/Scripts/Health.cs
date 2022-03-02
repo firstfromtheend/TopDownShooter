@@ -12,9 +12,12 @@ public class Health : MonoBehaviour
 
     CameraScreenShake cameraScreenShake;
 
+    AudioPlayer audioPlayer;
+
     private void Awake()
     {
         cameraScreenShake = Camera.main.GetComponent<CameraScreenShake>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,6 +56,7 @@ public class Health : MonoBehaviour
         {
             ParticleSystem instance = Instantiate(deathVFX, transform.position, Quaternion.identity);
             Destroy(instance, instance.main.duration + instance.main.startLifetime.constantMax);
+            audioPlayer.PlayPlayerDeath();
         }
     }
 }
