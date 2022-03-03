@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour
 {
+    static ScoreKeeper instance;
+
     private int playerScore = 0;
     public int PlayerScore { 
         get { return playerScore; } 
@@ -13,8 +15,26 @@ public class ScoreKeeper : MonoBehaviour
         } 
     }
 
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+    }
+
     public void ResetScore()
     {
         playerScore = 0;
+    }
+    public int Getscore()
+    {
+        return playerScore;
     }
 }
